@@ -5,8 +5,11 @@ from turtle import Turtle
 class Snake:
 
     def __init__(self):
+        self.MOVE_DISTANCE = 20
         self.snake_segments: List[Turtle] = []
+        self.create_snake()
 
+    def create_snake(self):
         for index in range(3):
             segment = Turtle(shape="square")
             segment.color("white")
@@ -24,5 +27,4 @@ class Snake:
 
             self.snake_segments[segment_index].goto(x=new_x_position, y=new_y_position)
 
-        self.snake_segments[0].left(90)
-        self.snake_segments[0].forward(20)
+        self.snake_segments[0].forward(self.MOVE_DISTANCE)
