@@ -6,6 +6,7 @@ class Snake:
 
     def __init__(self):
         self.MOVE_DISTANCE = 20
+        self.STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
         self.RIGHT = 0
         self.UP = 90
         self.LEFT = 180
@@ -16,15 +17,19 @@ class Snake:
         self.head: Turtle = self.snake_segments[0]
 
     def create_snake(self):
-        for index in range(3):
-            segment = Turtle(shape="square")
-            segment.color("white")
-            segment.penup()
+        for position in self.STARTING_POSITIONS:
+            self.add_segment(position)
 
-            x_position = -20 * index
+    def add_segment(self, position):
+        segment = Turtle(shape="square")
+        segment.color("white")
+        segment.penup()
+        segment.goto(position)
+        self.snake_segments.append(segment)
 
-            segment.goto(x=x_position, y=0)
-            self.snake_segments.append(segment)
+    def grow(self):
+        # add a new segment to the snake
+        self.add_segment(self.snake_segments[-1].position())
 
     def move(self):
         for segment_index in range(len(self.snake_segments) - 1, 0, -1):
